@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">FreshBasicChess</string>
+    <string name="row8id">8</string>
+    <string name="row7id">7</string>
+    <string name="row6id">6</string>
+    <string name="row5id">5</string>
+    <string name="row4id">4</string>
+    <string name="row3id">3</string>
+    <string name="row2id">2</string>
+    <string name="row1id">1</string>
+    <string name="col1id">a</string>
+    <string name="col2id">b</string>
+    <string name="col3id">c</string>
+    <string name="col4id">d</string>
+    <string name="col5id">e</string>
+    <string name="col6id">f</string>
+    <string name="col7id">g</string>
+    <string name="col8id">h</string>
+    <string name="upgrade_your_pawn_to">Upgrade your pawn to:</string>
+    <string name="cool_code_name">Cool Code Name</string>
+    <string name="password">Password</string>
+    <string name="join_in">Join-IN</string>
+    <string name="sign_up">Sign-up</string>
+</resources>
