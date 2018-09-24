@@ -273,20 +273,28 @@ public class Game{
         if(moveAllowed(chosenSquare)){
             Piece chosenPiece=SquareToPieceMap.get(initialPos);
 
+
+
             if(SquareToPieceMap.get(chosenSquare)==null){
 
                 if(chosenPiece.moveIsSpecial(initialPos,chosenSquare)){
                     chosenPiece.performSpecialMove(initialPos,chosenSquare);
+                    addCopy();
                 }else{
                     move(initialPos,chosenSquare);
+                    addCopy();
                 }
+
+                if(chosenPiece.type.equals("pawn"))gameRecord.clear();
 
             }else{
 
                 if(chosenPiece.moveIsSpecial(initialPos,chosenSquare)){
                     chosenPiece.performSpecialMove(initialPos,chosenSquare);
+                    gameRecord.clear();
                 }else {
                     capture(initialPos, chosenSquare);
+                    gameRecord.clear();
                 }
 
             }
@@ -313,12 +321,10 @@ public class Game{
                 MainActivity.makeToast(activity,"Check!");
             }
 
-            addCopy();
-
-            if(checkForDraw()){
+            /*if(checkForDraw()){
                 MainActivity.makeToast(activity,"Game Drawn!");
                 activity.finish();
-            }                                   //undo//offer draw//quit game//add activities//online//chess engine.
+            }*/                                  //undo//insufficient material draw//offer draw//quit game//add activities//online//chess engine.
             currentPossibilities=null;
 
         }else{
@@ -328,11 +334,11 @@ public class Game{
         }
     }
 
-    private boolean checkForDraw(){
-        /*if(gameRecord.size()==50){
-            MainActivity.makeToast(activity,"No Pawn Moves or Captures for 50 moves!");
+    /*private boolean checkForDraw(){
+        if(gameRecord.size()==50){
+            MainActivity.makeToast(activity,"No Pawn Move or Capture for 50 moves!");
             return true;
-        }*/
+        }
 
         int count=0;
         for(int i=0;i<gameRecord.size()-1;i++){
@@ -347,7 +353,7 @@ public class Game{
         }
 
         return false;
-    }
+    }*/
 
     private void specialNeeds(Piece chosenPiece,String source,String target){
         if(chosenPiece.type.equals("king")){
