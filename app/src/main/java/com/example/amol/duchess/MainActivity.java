@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static void makeToast(MainActivity activity, String message){
-        Toast.makeText(activity,message,Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity,message,Toast.LENGTH_LONG).show();
     }
 
     public void displayBoard(HashMap<String,Piece> boardMap, MainActivity activity) {

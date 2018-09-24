@@ -1,6 +1,7 @@
 package com.example.amol.duchess;
 
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class Game{
     HashMap<String,Piece> SquareToPieceMap;
     HashMap<Piece,String> PieceToSquareMap;
     private ArrayList<String> currentPossibilities=null;
-    private ArrayList <HashMap<String,Piece>> gameRecord=null;
+    private ArrayList <HashMap<String,Piece>> gameRecord;
 
     Game(MainActivity activity){
         this.activity=activity;
@@ -26,7 +27,20 @@ public class Game{
         initializeMaps();
 
         gameRecord=new ArrayList<>();
-        gameRecord.add(SquareToPieceMap);
+        addCopy();
+    }
+
+    private void addCopy(){
+        HashMap<String,Piece> tempMap=new HashMap<>();
+
+        for(char c1='1';c1<='8';c1++){
+            for(char c2='a';c2<='h';c2++){
+                String id=Character.toString(c2)+Character.toString(c1);
+                tempMap.put(id,SquareToPieceMap.get(id));
+            }
+        }
+
+        gameRecord.add(tempMap);
 
     }
 
@@ -129,12 +143,6 @@ public class Game{
         Piece chosenPiece=SquareToPieceMap.get(initialPos);
         String finalPos;
 
-        System.out.println("Before, piece: "+chosenPiece.type);
-        for(int i=0;i<currentPossibilities.size();i++){
-            System.out.print(currentPossibilities.get(i));
-        }
-        System.out.println("End of before");
-
         for(int i=0;i<currentPossibilities.size();i++){
             finalPos=currentPossibilities.get(i);
 
@@ -153,8 +161,6 @@ public class Game{
                     move(initialPos,finalPos);
 
                     if(checkForCheck(currentTurn)){
-                        //System.out.println("piece "+chosenPiece.type);
-                        //System.out.println("removing "+currentPossibilities.get(i));
                         currentPossibilities.remove(i);
                         i--;
                     }
@@ -186,11 +192,6 @@ public class Game{
 
             }
         }
-        System.out.println("After");
-        for(int i=0;i<currentPossibilities.size();i++){
-            System.out.print(currentPossibilities.get(i));
-        }
-        System.out.println("End of after");
     }
 
     public boolean checkForCheck(int kingColour) {
@@ -312,7 +313,7 @@ public class Game{
                 MainActivity.makeToast(activity,"Check!");
             }
 
-            gameRecord.add(SquareToPieceMap);
+            addCopy();
 
             if(checkForDraw()){
                 MainActivity.makeToast(activity,"Game Drawn!");
@@ -328,19 +329,19 @@ public class Game{
     }
 
     private boolean checkForDraw(){
-        if(gameRecord.size()==50){
-            MainActivity.makeToast(activity,"For 50 moves, no pawn moved and no piece captured!");
+        /*if(gameRecord.size()==50){
+            MainActivity.makeToast(activity,"No Pawn Moves or Captures for 50 moves!");
             return true;
-        }
+        }*/
 
         int count=0;
         for(int i=0;i<gameRecord.size()-1;i++){
             if(count==2){
-                MainActivity.makeToast(activity,"Same board positions repeated for 3 times!");
+                MainActivity.makeToast(activity,"Identical Board Position repeated thrice!");
                 return true;
             }
 
-            if(gameRecord.get(gameRecord.size()-1)==gameRecord.get(i)){
+            if(gameRecord.get(gameRecord.size()-1).equals(gameRecord.get(i))){
                 count++;
             }
         }

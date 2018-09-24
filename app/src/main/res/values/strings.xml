@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FreshBasicChess</string>
+    <string name="app_name">DuChess</string>
     <string name="row8id">8</string>
     <string name="row7id">7</string>
     <string name="row6id">6</string>
